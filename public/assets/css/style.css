@@ -1,0 +1,39 @@
+body {
+    background-color: #ddd;
+}
+#topnavbar .nav a .fa {
+    background-color:transparent;
+    color:none;
+}
+
+.menu {
+    border: 1px solid #ccc;
+}
+
+.fa-fw{
+    background-color:transparent;
+    color:#ccc;
+}
+
+.fa-myuser{
+    font-size: 35px;
+}
+
+.search_form {
+    border: 2px solid #f0ad4e;
+    border-radius:100px;
+}
+
+.search_form .first_btn .btn {
+    border-top-left-radius:100px;
+    border-bottom-left-radius:100px;
+}
+
+.search_form .second_btn .btn {
+    border-top-right-radius:100px;
+    border-bottom-right-radius:100px;
+}
+
+.mybtn {
+    border-radius:200px;
+}
