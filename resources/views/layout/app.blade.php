@@ -272,6 +272,14 @@
                                 <label for="ward">Ward</label>
                                 <input type="text" name="ward_id" id="ward" class="form-control" placeholder="Enter your ward" required>
                             </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmpassword">Confirm Password</label>
+                                <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Confirm your password" required>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
