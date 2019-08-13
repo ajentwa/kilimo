@@ -2,7 +2,9 @@
 /public/hot
 /public/storage
 /storage/*.key
-vendor
+<<<<<<< HEAD
+=======
+>>>>>>> 450b0561c9f328102757c3fef19710165532f5b4
 /.idea
 /.vscode
 /.vagrant
@@ -10,5 +12,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-.env
 .phpunit.result.cache
