@@ -2,6 +2,9 @@
 /public/hot
 /public/storage
 /storage/*.key
+<<<<<<< HEAD
+=======
+>>>>>>> 450b0561c9f328102757c3fef19710165532f5b4
 /.idea
 /.vscode
 /.vagrant

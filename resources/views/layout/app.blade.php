@@ -75,7 +75,7 @@
                     </div>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">| &nbsp; Ready to ship</a>
+                      <a class="nav-link" data-toggle="modal" data-target="#addUserModal" href="#">| &nbsp; Register</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="#">Trade shows</a>
@@ -228,6 +228,67 @@
                     </div>
                 </div>
             </div>
+
+
+        <!-- USER MODAL -->
+        <div class="modal fade" id="addUserModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Farmer registration</h5>
+                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Enter first name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="middle_name">Middle Name</label>
+                                <input type="text" name="middle_name" id="middle_name" class="form-control" placeholder="Enter middle name">
+                            </div>
+                            <div class="form-group">
+                                <label for="surname">Surname</label>
+                                <input type="text" name="surname" id="surname" class="form-control" placeholder="Enter surname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone number*</label>
+                                <input type="text" name="phone_number" id="phone" class="form-control" placeholder="Enter phone number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Enter email address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="region">Region</label>
+                                <input type="text" name="region_id" id="region" class="form-control" placeholder="Enter your region" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="district">District</label>
+                                <input type="text" name="district_id" id="district" class="form-control" placeholder="Enter your district" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ward">Ward</label>
+                                <input type="text" name="ward_id" id="ward" class="form-control" placeholder="Enter your ward" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmpassword">Confirm Password</label>
+                                <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Confirm your password" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal">close</button>
+                        <button class="btn btn-primary" data-dismiss="modal">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script src="{{asset('assets/js/jquery.slim.min.js')}}"></script>
         <script src="{{asset('assets/js/popper.min.js')}}"></script>
         <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
