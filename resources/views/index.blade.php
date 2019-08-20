@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/select2/dist/css/select2.css')}}">
 </head>
 <body>
 <section id="topnavbar" class=" bg-white">
@@ -85,18 +84,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('dashboard')}}">Dashboard</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        Services
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="profile.html" class="dropdown-item">
-                            <i class="fa fa-gear"></i> kilimo
-                        </a>
-                        <a href="settings.html" class="dropdown-item">
-                            <i class="fa fa-gear"></i> kilimo
-                        </a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#userLoginModal" href="#">Login</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -142,7 +131,7 @@
     @include('layout.errors')
     @include('layout.success')
 
-    <div class="container bg-white text-dark py-3 my-3">
+    <div class="container-fluid bg-white text-dark py-3 my-3">
         <div class="row">
             <div class="col-md-3">
                 <div class="card pb-5">
@@ -250,9 +239,9 @@
     </div>
 
 
-    <!-- USER MODAL -->
+    <!-- USER REGISTRATION MODAL -->
     <div class="modal fade" id="addUserModal">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{url('register')}}" method="post" autocomplete="off">
                     <div class="modal-header bg-primary text-white">
@@ -293,27 +282,22 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="region">Region</label>
-                                <select name="region_id" id="region" class="form-control dd_select" style="width: 100%" required>
-                                    <option value="">---</option>
-                                    @foreach($regions as $region)
-                                        <option value="{{ $region->id }}">{{ $region->name }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" name="region_id" id="region" class="form-control"
+                                       placeholder="Enter your region" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <label for="district" class="control-label">District</label>
-                                <select name="district_id" id="district" class="form-control dd_select" style="width: 100%" required>
-                                    <option value="">---</option>
-                                </select>
+                                <label for="district">District</label>
+                                <input type="text" name="district_id" id="district" class="form-control"
+                                       placeholder="Enter your district" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="ward">Ward</label>
-                                <select name="ward_id" id="ward" class="form-control dd_select" style="width: 100%" required>
-                                    <option value="">---</option>
-                                </select>
+                                <input type="text" name="ward_id" id="ward" class="form-control"
+                                       placeholder="Enter your ward" required>
                             </div>
+
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">
@@ -337,56 +321,53 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('assets/vendors/jquery/dist/jquery.js')}}"></script>
+
+    <!-- USER LOGIN MODAL -->
+    <div class="modal fade" id="userLoginModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{url('login')}}" method="post" autocomplete="off">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Farmer Login</h5>
+                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body pt-4">
+                        @csrf
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><i class="fa fa-lg text-primary fa-user"></i></span>
+                            <input type="text" name="reg_number" class="form-control" placeholder="Enter Username" required>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><i class="fa fa-lg text-primary fa-lock"></i></span>
+                            <input type="password" name="password" class="form-control" placeholder="Enter Password" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Log In</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{asset('assets/js/jquery.slim.min.js')}}"></script>
     <script src="{{asset('assets/js/popper.min.js')}}"></script>
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets/vendors/select2/dist/js/select2.full.js')}}"></script>
     <script type="text/javascript">
-
-
-        $('.dd_select').select2();
-
-        //Populating the district
-        $('#region').on('change', function () {
-            alert($(this).val());
-
-            let regionID = $(this).val();
-            $.ajax({
-                url: '{{url('/ajax/district/')}}',
-                type: "GET",
-                data: {region_id: regionID},
-                dataType: "json",
-                success: function (data) {
-                    var district = $('#district');
-                    district.empty();
-                    district.append('<option value="">Select District</option>');
-                    $.each(data, function (key, value) {
-                        $('#district').append('<option value="' + key + '">' + value + '</option>');
-                    });
-                }
-            });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
 
-        //Populating Wards
-        $('#district').on('change', function () {
-            var districtID = $(this).val();
-            $.ajax({
-                url: '{{url('/ajax/ward/')}}',
-                type: "GET",
-                data: {district_id: districtID},
-                dataType: "json",
-                success: function (data) {
-                    var ward_id = $('#ward');
-                    ward_id.empty();
-                    ward_id.append('<option value="">Select Ward</option>');
-                    $.each(data, function (key, value) {
-                        $('#ward').append('<option value="' + key + '">' + value + '</option>');
-                    });
-                }
-            });
+        function clearMsg() {
+            $('.msg').hide();
+        }
+
+        $(window).load(function () {
+            setTimeout(clearMsg, 3000);
         });
-
-
     </script>
 </section>
 </body>
