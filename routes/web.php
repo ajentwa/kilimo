@@ -13,12 +13,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/','HomeController@index');
 Route::post('register','Auth\RegisterController@create');
 Route::get('dashboard','Auth\LoginController@dashboard');
-
 
 Route::get('cr','TempController@createRegion');
 Route::get('cd','TempController@createDistrict');
@@ -45,3 +42,7 @@ Route::post('ward/store', 'Setups\WardsController@store');
 Route::get('ward/edit/{id}', 'Setups\WardsController@edit');
 Route::post('ward/update', 'Setups\WardsController@update');
 Route::get('ward/delete/{id}', 'Setups\WardsController@destroy');
+
+//Ajax Routes
+Route::get('ajax/district/', 'Setups\DistrictsController@getDistricts');
+Route::get('ajax/ward/', 'Setups\WardsController@getWards');
