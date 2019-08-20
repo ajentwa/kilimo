@@ -84,18 +84,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('dashboard')}}">Dashboard</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        Services
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="profile.html" class="dropdown-item">
-                            <i class="fa fa-gear"></i> kilimo
-                        </a>
-                        <a href="settings.html" class="dropdown-item">
-                            <i class="fa fa-gear"></i> kilimo
-                        </a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#userLoginModal" href="#">Login</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -141,7 +131,7 @@
     @include('layout.errors')
     @include('layout.success')
 
-    <div class="container bg-white text-dark py-3 my-3">
+    <div class="container-fluid bg-white text-dark py-3 my-3">
         <div class="row">
             <div class="col-md-3">
                 <div class="card pb-5">
@@ -249,7 +239,7 @@
     </div>
 
 
-    <!-- USER MODAL -->
+    <!-- USER REGISTRATION MODAL -->
     <div class="modal fade" id="addUserModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -326,6 +316,36 @@
                         <button class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i> close
                         </button>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- USER LOGIN MODAL -->
+    <div class="modal fade" id="userLoginModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{url('login')}}" method="post" autocomplete="off">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Farmer Login</h5>
+                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body pt-4">
+                        @csrf
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><i class="fa fa-lg text-primary fa-user"></i></span>
+                            <input type="text" name="reg_number" class="form-control" placeholder="Enter Username" required>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><i class="fa fa-lg text-primary fa-lock"></i></span>
+                            <input type="password" name="password" class="form-control" placeholder="Enter Password" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i> close
+                        </button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Login</button>
                     </div>
                 </form>
             </div>
