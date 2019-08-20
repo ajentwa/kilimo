@@ -343,9 +343,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i> close
+                        <button class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i> Cancel
                         </button>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Login</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Log In</button>
                     </div>
                 </form>
             </div>
