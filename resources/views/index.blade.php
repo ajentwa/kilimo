@@ -282,22 +282,33 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="region">Region</label>
-                                <input type="text" name="region_id" id="region" class="form-control"
-                                       placeholder="Enter your region" required>
+                                <select class="form-control" name="region_id" id="region" required>
+                                    <option value="">Select Region</option>
+                                    @foreach ($regions as $region)
+                                        <option value="{{$region->id}}">{{$region->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="district">District</label>
-                                <input type="text" name="district_id" id="district" class="form-control"
-                                       placeholder="Enter your district" required>
+                                <select class="form-control" name="district_id" id="district" required>
+                                    <option value="">Select District</option>
+                                    @foreach ($districts as $district)
+                                        <option value="{{$district->id}}">{{$district->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="ward">Ward</label>
-                                <input type="text" name="ward_id" id="ward" class="form-control"
-                                       placeholder="Enter your ward" required>
+                                <select class="form-control" name="ward_id" id="ward" required>
+                                    <option value="">Select Ward</option>
+                                    @foreach ($wards as $ward)
+                                        <option value="{{$ward->id}}">{{$ward->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">

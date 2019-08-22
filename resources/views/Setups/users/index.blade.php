@@ -1,11 +1,11 @@
 @extends('layout.app')
-@section('title','| Regions')
+@section('title','| Users')
 
 @section('content')
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel x_panel_design">
             <div class="x_title">
-                <h2>Regions List</h2>
+                <h2>Users List</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#create_zone"
                             title="Create New Region"><i class="fa fa-plus-circle"></i> Add New
@@ -18,22 +18,24 @@
                     <thead>
                     <tr>
                         <th class="item_id">Id</th>
-                        <th>Region Name</th>
+                        <th>Full name</th>
+                        <th>Phone number</th>
+                        <th>Region</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($regions as $region)
+                    @foreach($users as $index => $user)
                         <tr>
-                            <td class="item_id">{{$region->id}}</td>
-                            <td class="desc_name">{{$region->name}}</td>
+                            <td class="item_id">{{$user->id}}</td>
+                            <td class="desc_name">{{$user->first_name." ".$user->middle_name." ".$user->surname}}</td>
+                            <td class="desc_name">{{$user->phone_no}}</td>
+                            <td class="desc_name">{{$user->region['name']}}</td>
                             <td width="25%">
-                                <a href="{{url('region/edit/'.$region->id)}}"
+                                <a href="{{url('users/edit/'.$user->id)}}"
                                    class="edit-btn">Edit</a> |
-                                <a href="{{url('region/delete/'.$region->id)}}"
+                                <a href="{{url('users/delete/'.$user->id)}}"
                                    class="delete-btn">Delete</a> |
-                                <a href="{{url('district/index/'.$region->id)}}"
-                                   class="btn-white">Districts</a>
                             </td>
                         </tr>
                     @endforeach
@@ -47,19 +49,33 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="create_zone" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
-                <form action="{{url('region/store')}}" method="post">
+                <form action="{{url('users/store')}}" method="post">
                     @csrf
                     <div class="modal-header modal-header-color">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">×</span>
                         </button>
-                        <h4 class="modal-title"><strong>Create Region</strong></h4>
+                        <h4 class="modal-title"><strong>Create User</strong></h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="name" class="control-label col-md-3 col-sm-12 col-xs-12">Region Name</label>
+                            <label for="first_name" class="control-label col-md-3 col-sm-12 col-xs-12">First Name</label>
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input type="text" id="name" name="name" class="form-control" required>
+                                <input type="text" id="first_name" name="first_name" class="form-control" required>
+                            </div>
+                            <label for="middle_name" class="control-label col-md-3 col-sm-12 col-xs-12">Middle Name</label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input type="text" id="middle_name" name="middle_name" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="surname" class="control-label col-md-3 col-sm-12 col-xs-12">Surname</label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input type="text" id="surname" name="surname" class="form-control" required>
+                            </div>
+                            <label for="email" class="control-label col-md-3 col-sm-12 col-xs-12">Email Address</label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input type="email" id="email" name="email" class="form-control" required>
                             </div>
                         </div>
                     </div>
