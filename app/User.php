@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\Setups\Region;
+use App\Models\Setups\Ward;
 
 class User extends Authenticatable
 {
@@ -14,14 +14,14 @@ class User extends Authenticatable
 
 //    protected $table = '';
 
-    protected $guarded = ['confirm_password'];
+    protected $guarded = ['confirm_password','region_id','district_id'];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    public function region()
+    public function ward()
     {
-        return $this->belongsTo(Region::class);
+        return $this->belongsTo(Ward::class);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\LogActivity;
 use App\User;
+use App\Models\Setups\Ward;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 
@@ -14,8 +15,8 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-
-        return view('Setups.users.index', compact('users'));
+        $wards = Ward::all();
+        return view('Setups.users.index', compact('users','wards'));
     }
 
     public function store(Request $request)
@@ -28,7 +29,7 @@ class UsersController extends Controller
             User::create($data);
 
             //log user Activity
-            $varData = "First Name = " . $data['first_name'] .", Middle Name = " . $data['middle_name'] .", Surname = " . $data['surname'] . ", Phone = " . $data['phone_no'] . ", Email = " . $data['email'] . ", Region = " . $data['region_id']. ", District = " . $data['district_id']. ", Ward = " . $data['ward_id'];
+            $varData = "First Name = " . $data['first_name'] .", Middle Name = " . $data['middle_name'] .", Surname = " . $data['surname'] . ", Phone = " . $data['phone_no'] . ", Email = " . $data['email'] . ", Ward = " . $data['ward_id'];
             $varAction = "Inserted User with, " . $varData;
             LogActivity::addToLog('Insert', $varAction);
 

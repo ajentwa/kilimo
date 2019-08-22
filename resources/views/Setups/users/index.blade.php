@@ -20,7 +20,7 @@
                         <th class="item_id">Id</th>
                         <th>Full name</th>
                         <th>Phone number</th>
-                        <th>Region</th>
+                        <th>Ward</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -30,7 +30,7 @@
                             <td class="item_id">{{$user->id}}</td>
                             <td class="desc_name">{{$user->first_name." ".$user->middle_name." ".$user->surname}}</td>
                             <td class="desc_name">{{$user->phone_no}}</td>
-                            <td class="desc_name">{{$user->region['name']}}</td>
+                            <td class="desc_name">{{$user->ward['name']}}</td>
                             <td width="25%">
                                 <a href="{{url('users/edit/'.$user->id)}}"
                                    class="edit-btn">Edit</a> |
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <!-- Create Modal -->
+    <!-- Create User -->
     <div class="modal fade" tabindex="-1" role="dialog" id="create_zone" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
@@ -57,25 +57,57 @@
                         </button>
                         <h4 class="modal-title"><strong>Create User</strong></h4>
                     </div>
-                    <div class="modal-body">
+                   <div class="modal-body">
                         <div class="form-group row">
-                            <label for="first_name" class="control-label col-md-3 col-sm-12 col-xs-12">First Name</label>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input type="text" id="first_name" name="first_name" class="form-control" required>
+                            <div class="col-md-6">
+                                <label for="first_name">First Name</label>
+                                <input type="text" name="first_name" id="first_name" class="form-control"
+                                       placeholder="Enter first name" required>
                             </div>
-                            <label for="middle_name" class="control-label col-md-3 col-sm-12 col-xs-12">Middle Name</label>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input type="text" id="middle_name" name="middle_name" class="form-control" required>
+                            <div class="col-md-6">
+                                <label for="middle_name">Middle Name</label>
+                                <input type="text" name="middle_name" id="middle_name" class="form-control"
+                                       placeholder="Enter middle name">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="surname" class="control-label col-md-3 col-sm-12 col-xs-12">Surname</label>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input type="text" id="surname" name="surname" class="form-control" required>
+                            <div class="col-md-6">
+                                <label for="surname">Surname</label>
+                                <input type="text" name="surname" id="surname" class="form-control"
+                                       placeholder="Enter surname" required>
                             </div>
-                            <label for="email" class="control-label col-md-3 col-sm-12 col-xs-12">Email Address</label>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input type="email" id="email" name="email" class="form-control" required>
+                            <div class="col-md-6">
+                                <label for="phone">Phone number</label>
+                                <input type="text" name="phone_no" id="phone" class="form-control"
+                                       placeholder="Enter phone number" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" class="form-control"
+                                       placeholder="Enter email address" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="ward">Ward</label>
+                                <select class="form-control" name="ward_id" id="ward" required>
+                                    <option value="">Select Ward</option>
+                                    @foreach ($wards as $ward)
+                                        <option value="{{$ward->id}}">{{$ward->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control"
+                                       placeholder="Enter your password" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="confirm_password">Confirm Password</label>
+                                <input type="password" name="confirm_password" id="confirm_password"
+                                       class="form-control" placeholder="Confirm your password" required>
                             </div>
                         </div>
                     </div>
@@ -90,22 +122,67 @@
         </div>
     </div>
 
-    <!-- Edit Modal -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="edit_region" aria-hidden="true">
+    <!-- Edit User -->
+    <div class="modal fade" role="dialog" id="edit_region" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
-
-
-                <form action="{{url('region/update')}}" method="post">
+                <form action="{{url('users/update')}}" method="post">
                     @csrf
                     <div class="modal-header modal-header-color">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">×</span>
                         </button>
-                        <h4 class="modal-title"><strong> Edit Region</strong></h4>
+                        <h4 class="modal-title"><strong> Edit User</strong></h4>
                     </div>
                     <div class="modal-body">
-
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="first_name">First Name</label>
+                                <input type="text" name="first_name" id="first_name" class="form-control"
+                            value="{{$user->first_name}}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="middle_name">Middle Name</label>
+                                <input type="text" name="middle_name" id="middle_name" class="form-control"
+                                    value="{{$user->middle_name}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="surname">Surname</label>
+                                <input type="text" name="surname" id="surname" class="form-control"
+                                       value="{{$user->surname}}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phone">Phone number</label>
+                                <input type="text" name="phone_no" id="phone" class="form-control"
+                                       value="{{$user->phone_no}}" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" class="form-control"
+                                    value="{{$user->email}}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="ward">Ward</label>
+                                <select class="form-control" name="ward_id" id="ward" required>
+                                <option value="{{$user->ward_id}}">{{$user->ward['name']}}</option>
+                                    @foreach ($wards as $ward)
+                                        <option value="{{$ward->id}}">{{$ward->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control"
+                                       value="{{$user->password}}" required>
+                            </div>
+                            <div class="col-md-6"></div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>
