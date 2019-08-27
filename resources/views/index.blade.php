@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendors/select2/dist/css/select2.css')}}">
 </head>
 <body>
 <section id="topnavbar" class=" bg-white">
@@ -241,7 +242,7 @@
 
     <!-- USER REGISTRATION MODAL -->
     <div class="modal fade" id="addUserModal">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form action="{{url('register')}}" method="post" autocomplete="off">
                     <div class="modal-header bg-primary text-white">
@@ -282,22 +283,27 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="region">Region</label>
-                                <input type="text" name="region_id" id="region" class="form-control"
-                                       placeholder="Enter your region" required>
+                                <select name="region_id" id="region" class="form-control dd_select" style="width: 100%" required>
+                                    <option value="">---</option>
+                                    @foreach($regions as $region)
+                                        <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <label for="district">District</label>
-                                <input type="text" name="district_id" id="district" class="form-control"
-                                       placeholder="Enter your district" required>
+                                <label for="district" class="control-label">District</label>
+                                <select name="district_id" id="district" class="form-control dd_select" style="width: 100%" required>
+                                    <option value="">---</option>
+                                </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="ward">Ward</label>
-                                <input type="text" name="ward_id" id="ward" class="form-control"
-                                       placeholder="Enter your ward" required>
+                                <select name="ward_id" id="ward" class="form-control dd_select" style="width: 100%" required>
+                                    <option value="">---</option>
+                                </select>
                             </div>
-
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">
@@ -351,23 +357,57 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('assets/js/jquery.slim.min.js')}}"></script>
+
+    <script src="{{asset('assets/vendors/jquery/dist/jquery.js')}}"></script>
     <script src="{{asset('assets/js/popper.min.js')}}"></script>
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/select2/dist/js/select2.full.js')}}"></script>
     <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+
+
+        $('.dd_select').select2();
+
+        //Populating the district
+        $('#region').on('change', function () {
+            alert($(this).val());
+
+            let regionID = $(this).val();
+            $.ajax({
+                url: '{{url('/ajax/district/')}}',
+                type: "GET",
+                data: {region_id: regionID},
+                dataType: "json",
+                success: function (data) {
+                    var district = $('#district');
+                    district.empty();
+                    district.append('<option value="">Select District</option>');
+                    $.each(data, function (key, value) {
+                        $('#district').append('<option value="' + key + '">' + value + '</option>');
+                    });
+                }
+            });
         });
 
-        function clearMsg() {
-            $('.msg').hide();
-        }
-
-        $(window).load(function () {
-            setTimeout(clearMsg, 3000);
+        //Populating Wards
+        $('#district').on('change', function () {
+            var districtID = $(this).val();
+            $.ajax({
+                url: '{{url('/ajax/ward/')}}',
+                type: "GET",
+                data: {district_id: districtID},
+                dataType: "json",
+                success: function (data) {
+                    var ward_id = $('#ward');
+                    ward_id.empty();
+                    ward_id.append('<option value="">Select Ward</option>');
+                    $.each(data, function (key, value) {
+                        $('#ward').append('<option value="' + key + '">' + value + '</option>');
+                    });
+                }
+            });
         });
+
+
     </script>
 </section>
 </body>
