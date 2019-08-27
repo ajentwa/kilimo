@@ -27,7 +27,7 @@
                         <tr>
                             <td class="item_id">{{$region->id}}</td>
                             <td class="desc_name">{{$region->name}}</td>
-                            <td width="18%">
+                            <td width="25%">
                                 <a href="{{url('region/edit/'.$region->id)}}"
                                    class="edit-btn">Edit</a> |
                                 <a href="{{url('region/delete/'.$region->id)}}"

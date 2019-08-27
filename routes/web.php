@@ -21,12 +21,20 @@ Route::get('cr','TempController@createRegion');
 Route::get('cd','TempController@createDistrict');
 Route::get('cw','TempController@createWards');
 
+//Users
+Route::get('users', 'Setups\UsersController@index');
+Route::post('users/store', 'Setups\UsersController@store');
+Route::get('users/edit/{id}', 'Setups\UsersController@edit');
+Route::post('users/update', 'Setups\UsersController@update');
+Route::get('users/delete/{id}', 'Setups\UsersController@destroy');
+
 //Regions
 Route::get('region', 'Setups\RegionsController@index');
 Route::post('region/store', 'Setups\RegionsController@store');
 Route::get('region/edit/{id}', 'Setups\RegionsController@edit');
 Route::post('region/update', 'Setups\RegionsController@update');
 Route::get('region/delete/{id}', 'Setups\RegionsController@destroy');
+
 
 //District
 Route::get('district/index/{id}', 'Setups\DistrictsController@index');
