@@ -131,7 +131,7 @@
     @include('layout.errors')
     @include('layout.success')
 
-    <div class="container-fluid bg-white text-dark py-3 mb-3">
+    <div class="container-fluid bg-white text-dark py-3 my-3">
         <div class="row">
             <div class="col-md-3">
                 <div class="card pb-5">

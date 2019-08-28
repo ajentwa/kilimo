@@ -51,6 +51,20 @@ Route::get('ward/edit/{id}', 'Setups\WardsController@edit');
 Route::post('ward/update', 'Setups\WardsController@update');
 Route::get('ward/delete/{id}', 'Setups\WardsController@destroy');
 
+//Units
+Route::get('unit', 'Setups\UnitsController@index');
+Route::post('unit/store', 'Setups\UnitsController@store');
+Route::get('unit/edit/{id}', 'Setups\UnitsController@edit');
+Route::post('unit/update', 'Setups\UnitsController@update');
+Route::get('unit/delete/{id}', 'Setups\UnitsController@destroy');
+
+//Crops
+Route::get('crop', 'Crops\CropsController@index');
+Route::post('crop/store', 'Crops\CropsController@store');
+Route::get('crop/edit/{id}', 'Crops\CropsController@edit');
+Route::post('crop/update', 'Crops\CropsController@update');
+Route::get('crop/delete/{id}', 'Crops\CropsController@destroy');
+
 //Ajax Routes
 Route::get('ajax/district/', 'Setups\DistrictsController@getDistricts');
 Route::get('ajax/ward/', 'Setups\WardsController@getWards');

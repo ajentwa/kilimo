@@ -64,6 +64,7 @@
                         <h3>General</h3>
                         <ul class="nav side-menu">
                             <li><a href="{{url('dashboard')}}"><i class="fa fa-tachometer"></i> Dashboard</a></li>
+                            <li><a href="{{url('crop')}}"><i class="fa fa-crop"></i> Crops</a></li>
                         </ul>
                     </div>
 
@@ -75,6 +76,7 @@
                                     <ul class="nav child_menu">
                                         <li><a href="{{url('users')}}">Users</a></li>
                                         <li><a href="{{url('region')}}">Regions</a></li>
+                                        <li><a href="{{url('unit')}}">Units</a></li>
                                         <li><a href="{{url('logs')}}">Logs</a></li>
                                     </ul>
                                 </li>

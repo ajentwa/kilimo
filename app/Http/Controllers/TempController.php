@@ -83,7 +83,7 @@ class TempController extends Controller
         {
             $wards = DB::table('temp')->select('ward', 'district')->where('district', '=', $district->district)
                 ->distinct()->get();
-
+ 
             foreach ($wards as $ward) {
                 $dist_id = District::where('name', $ward->district)->first()->id;
                 $selectedWard = Ward::where([['name', $ward->ward], ['district_id', $dist_id]])->first();
