@@ -93,7 +93,6 @@ class TempController extends Controller
                     );
                 }
             }
-
         }
     }
 
