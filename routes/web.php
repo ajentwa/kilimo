@@ -13,8 +13,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/','HomeController@index');
+Route::get('/','HomeController@index')->name('login');
 Route::post('register','Auth\RegisterController@create');
+Route::post('login','Auth\LoginController@userLogin');
 Route::get('dashboard','Auth\LoginController@dashboard');
 
 Route::get('cr','TempController@createRegion');

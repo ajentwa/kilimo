@@ -20,6 +20,8 @@
                         <th class="item_id">Id</th>
                         <th>Full name</th>
                         <th>Phone number</th>
+                        <th>Region</th>
+                        <th>District</th>
                         <th>Ward</th>
                         <th>Actions</th>
                     </tr>
@@ -30,12 +32,12 @@
                             <td class="item_id">{{$user->id}}</td>
                             <td class="desc_name">{{$user->first_name." ".$user->middle_name." ".$user->surname}}</td>
                             <td class="desc_name">{{$user->phone_no}}</td>
-                            <td class="desc_name">{{$user->ward['name']}}</td>
-                            <td width="20%">
-                                <a href="{{url('users/edit/'.$user->id)}}"
-                                   class="edit-btn">Edit</a> |
-                                <a href="{{url('users/delete/'.$user->id)}}"
-                                   class="delete-btn">Delete</a> |
+                            <td class="desc_name">{{$user->ward->district->region->name}}</td>
+                            <td class="desc_name">{{$user->ward->district->name}}</td>
+                            <td class="desc_name">{{$user->ward->name}}</td>
+                            <td style="width: 12%">
+                                <a href="{{url('users/edit/'.$user->id)}}" class="edit-btn">Edit</a> |
+                                <a href="{{url('users/delete/'.$user->id)}}" class="delete-btn">Delete</a>
                             </td>
                         </tr>
                     @endforeach

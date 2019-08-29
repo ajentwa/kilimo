@@ -27,11 +27,11 @@
                         <tr>
                             <td class="item_id">{{$unit->id}}</td>
                             <td class="desc_name">{{$unit->name}}</td>
-                            <td width="25%">
+                            <td style="width: 12%">
                                 <a href="{{url('unit/edit/'.$unit->id)}}"
                                    class="edit-btn">Edit</a> |
                                 <a href="{{url('unit/delete/'.$unit->id)}}"
-                                   class="delete-btn">Delete</a> |
+                                   class="delete-btn">Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -78,7 +78,7 @@
             <div class="modal-content">
                 <form action="{{url('unit/update')}}" method="post">
                     @csrf
-                    <div class="modal-header bg-success">
+                    <div class="modal-header modal-header-color">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>

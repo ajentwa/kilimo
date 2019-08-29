@@ -7,11 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Helpers\LogActivity;
 use App\User;
 use App\Models\Setups\Ward;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 
 class UsersController extends Controller
-{   
+{
     public function index()
     {
         $users = User::all();
@@ -25,7 +26,9 @@ class UsersController extends Controller
 
         $user_exist = User::where('email', $data['email'])->first();
 
-        if (!$user_exist) {
+        if (!$user_exist)
+        {
+            $data['password'] = Hash::make($data['password']);
             User::create($data);
 
             //log user Activity

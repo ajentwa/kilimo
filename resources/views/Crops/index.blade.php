@@ -30,14 +30,12 @@
                         <tr>
                             <td class="item_id">{{$crop->id}}</td>
                             <td class="desc_name">{{$crop->crop_name}}</td>
-                            <td>{{$crop->unit['name']}}</td>
-                            <td>{{$crop->farmer['first_name'].' '.$crop->farmer['surname']}}</td>
-                            <td>{{$crop->year['name']}}</td>
-                            <td width="25%">
-                                <a href="{{url('crop/edit/'.$crop->id)}}"
-                                   class="edit-btn">Edit</a> |
-                                <a href="{{url('crop/delete/'.$crop->id)}}"
-                                   class="delete-btn">Delete</a> |
+                            <td>{{$crop->unit->name}}</td>
+                            <td>{{$crop->farmer->first_name.' '.$crop->farmer->surname}}</td>
+                            <td>{{$crop->year->name}}</td>
+                            <td style="width:12%">
+                                <a href="{{url('crop/edit/'.$crop->id)}}" class="edit-btn">Edit</a> |
+                                <a href="{{url('crop/delete/'.$crop->id)}}" class="delete-btn">Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -48,50 +46,34 @@
     </div>
 
     <!-- Create Modal -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="create_zone" aria-hidden="true">
+    <div class="modal fade" role="dialog" id="create_zone" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <form action="{{url('crop/store')}}" method="post">
                     @csrf
                     <div class="modal-header modal-header-color">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">×</span>
+                                aria-hidden="true">×</span>
                         </button>
                         <h4 class="modal-title"><strong>Create Crop</strong></h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="name" class="control-label col-md-3 col-sm-12 col-xs-12">Crop Name</label>
                             <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label for="name" class="control-label">Crop Name</label>
                                 <input type="text" id="name" name="crop_name" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="h6" for="class">Crop Unit</label>
-                            <select class="form-control" name="unit_id" id="class" required>
-                                <option value="">Select Unit</option>
-                                @foreach ($units as $unit)
-                                    <option value="{{$unit->id}}">{{$unit->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group row">
-                            <label class="h6" for="class">Crop Farmer</label>
-                            <select class="form-control" name="farmer_id" id="class" required>
-                                <option value="">Select Farmer</option>
-                                @foreach ($users as $user)
-                                    <option value="{{$user->id}}">{{$user->first_name.' '.$user->surname}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group row">
-                            <label class="h6" for="class">Crop Year</label>
-                            <select class="form-control" name="year_id" id="class" required>
-                                <option value="">Select Year</option>
-                                @foreach ($years as $year)
-                                    <option value="{{$year->id}}">{{$year->name}}</option>
-                                @endforeach
-                            </select>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label class="control-label" for="unit">Crop Unit</label>
+                                <select class="form-control dd_select" name="unit_id" id="unit" required style="width: 100%">
+                                    <option value="">---</option>
+                                    @foreach ($units as $unit)
+                                        <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -106,18 +88,18 @@
     </div>
 
     <!-- Edit Modal -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="edit_crop" aria-hidden="true">
+    <div class="modal fade" role="dialog" id="edit_crop" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <form action="{{url('crop/update')}}" method="post">
                     @csrf
-                    <div class="modal-header bg-success">
+                    <div class="modal-header modal-header-color">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                         <h4 class="modal-title"><strong> Edit Crop</strong></h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body modal-edit">
 
                     </div>
                     <div class="modal-footer">
@@ -139,10 +121,15 @@
         $('.edit-btn').on('click', function (e) {
             e.preventDefault();
             var dataURL = $(this).attr('href');
-            $('.modal-body').load(dataURL, function () {
+            $('.modal-edit').load(dataURL, function () {
                 $('#edit_crop').modal({show: true});
             });
         });
+
+        $('#edit_crop').on('shown.bs.modal',function () {
+           $('.dd_select').select2();
+        });
+
         //For Deleting
         $(".delete-btn").click(function (e) {
             e.preventDefault();

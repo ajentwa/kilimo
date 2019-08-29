@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Crops;
+
 use App\User;
 use App\Models\Crops\Crop;
 use App\Models\Setups\Unit;
 use App\Models\Setups\Year;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -15,24 +15,27 @@ class CropsController extends Controller
 {
     public function index()
     {
-        $crops = Crop::all();
+        $user_id = auth()->user()->id;
 
-        $users = User::all();
+        $params['crops'] = Crop::where('farmer_id', $user_id)->get();
 
-        $units = Unit::all();
+        $params['units'] = Unit::all();
 
-        $years = Year::all();
-
-        return view('Crops.index', compact('crops','users','units','years'));
+        return view('Crops.index', $params);
     }
 
     public function store()
     {
+        $user_id = auth()->user()->id;
+        $year_id = Year::where('status', true)->first()->id;
         $data = Input::all();
 
         $crop_exist = Crop::where('crop_name', $data['crop_name'])->first();
 
         if (!$crop_exist) {
+
+            $data['farmer_id'] = $user_id;
+            $data['year_id'] = $year_id;
             Crop::create($data);
 
             //log user Activity
@@ -56,7 +59,7 @@ class CropsController extends Controller
 
         $years = Year::all();
 
-        return view('Crops.edit', compact('crop','users','units','years'));
+        return view('Crops.edit', compact('crop', 'users', 'units', 'years'));
     }
 
     public function update()

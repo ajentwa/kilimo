@@ -282,7 +282,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="region">Region</label>
-                                <select class="form-control" name="region_id" id="region" required>
+                                <select class="form-control dd_select" name="region_id" id="region" required>
                                     <option value="">Select Region</option>
                                     @foreach ($regions as $region)
                                         <option value="{{$region->id}}">{{$region->name}}</option>
@@ -338,6 +338,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{url('login')}}" method="post" autocomplete="off">
+                    @csrf
                     <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title">Farmer Login</h5>
                         <button class="close" data-dismiss="modal"><span>&times;</span></button>
@@ -346,7 +347,7 @@
                         @csrf
                         <div class="form-group input-group">
                             <span class="input-group-addon"><i class="fa fa-lg text-primary fa-user"></i></span>
-                            <input type="text" name="reg_number" class="form-control" placeholder="Enter Username" required>
+                            <input type="text" name="email" class="form-control" placeholder="Enter Username" required>
                         </div>
                         <div class="form-group input-group">
                             <span class="input-group-addon"><i class="fa fa-lg text-primary fa-lock"></i></span>
@@ -362,7 +363,7 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('assets/js/jquery.slim.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/popper.min.js')}}"></script>
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript">
@@ -379,6 +380,49 @@
         $(window).load(function () {
             setTimeout(clearMsg, 3000);
         });
+
+        //Populating the district
+        $('#region').on('change', function () {
+            var regionID = $(this).val();
+            alert(regionID);
+            $.ajax({
+                url: '{{url('/ajax/district/')}}',
+                type: "GET",
+                data: {region_id: regionID},
+                dataType: "json",
+                success: function (data) {
+                    var district = $('#district');
+                    district.empty();
+                    district.append('<option value="">Select District</option>');
+                    $.each(data, function (key, value) {
+                        $('#district').append('<option value="' + key + '">' + value + '</option>');
+                    });
+
+                }
+            });
+        });
+
+        //Populating Wards
+        $('#district').on('change', function () {
+            var districtID = $(this).val();
+
+            alert(districtID);
+            $.ajax({
+                url: '{{url('/ajax/ward/')}}',
+                type: "GET",
+                data: {district_id: districtID},
+                dataType: "json",
+                success: function (data) {
+                    var ward_id = $('#ward');
+                    ward_id.empty();
+                    ward_id.append('<option value="">Select Ward</option>');
+                    $.each(data, function (key, value) {
+                        $('#ward').append('<option value="' + key + '">' + value + '</option>');
+                    });
+                }
+            });
+        });
+
     </script>
 </section>
 </body>

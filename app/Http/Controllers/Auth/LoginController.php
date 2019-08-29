@@ -3,29 +3,23 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
 
-
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function userLogin()
     {
-        $this->middleware('guest')->except('logout');
+        $data = Input::all();
+
+        if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+            return redirect()->action('Auth\LoginController@dashboard');
+        } else {
+            $errorMsg = "Wrong UserName or Password";
+            return Redirect::back()->with('errors',$errorMsg);
+        }
     }
 
     public function dashboard()

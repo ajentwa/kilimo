@@ -12,4 +12,9 @@ class User extends Model
     use SoftDeletes;
 
     protected $fillable = ['first_name', 'middle_name', 'surname', 'email', 'phone_no', 'password', 'ward_id', 'password', 'remember_token'];
+
+    public function ward(){
+        return $this->belongsTo(Ward::class,'ward_id');
+    }
+
 }
