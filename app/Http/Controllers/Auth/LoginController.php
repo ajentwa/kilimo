@@ -27,5 +27,9 @@ class LoginController extends Controller
         return view('dashboard');
     }
 
-
+    public function userLogout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
 }

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','HomeController@index')->name('login');
 Route::post('register','Auth\RegisterController@create');
 Route::post('login','Auth\LoginController@userLogin');
+Route::get('logout','Auth\LoginController@userLogout');
 Route::get('dashboard','Auth\LoginController@dashboard');
 
 Route::get('cr','TempController@createRegion');
@@ -65,6 +66,9 @@ Route::post('crop/store', 'Crops\CropsController@store');
 Route::get('crop/edit/{id}', 'Crops\CropsController@edit');
 Route::post('crop/update', 'Crops\CropsController@update');
 Route::get('crop/delete/{id}', 'Crops\CropsController@destroy');
+
+// Crops Details
+Route::get('crops_details', 'Crops\CropsdetailsController@index');
 
 //Ajax Routes
 Route::get('ajax/district/', 'Setups\DistrictsController@getDistricts');

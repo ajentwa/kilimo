@@ -33,7 +33,7 @@
                             <td>{{$crop->unit->name}}</td>
                             <td>{{$crop->farmer->first_name.' '.$crop->farmer->surname}}</td>
                             <td>{{$crop->year->name}}</td>
-                            <td style="width:12%">
+                            <td style="width:14%">
                                 <a href="{{url('crop/edit/'.$crop->id)}}" class="edit-btn">Edit</a> |
                                 <a href="{{url('crop/delete/'.$crop->id)}}" class="delete-btn">Delete</a>
                             </td>

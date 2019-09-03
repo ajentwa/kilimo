@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 class Crop extends Model
 {
     use Notifiable;
-    use SoftDeletes;
+    // use SoftDeletes;
     public $timestamps = true;
 //    protected $fillable = ['crop_name','farmer_id','unit_id','year_id']; hapa nakuonyesha namna ya kufanya mambo kwa urahisi
     protected $guarded = ['crop_id']; //Use this
