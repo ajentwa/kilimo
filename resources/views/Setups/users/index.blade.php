@@ -125,7 +125,7 @@
     </div>
 
     <!-- Edit User -->
-    <div class="modal fade" role="dialog" id="edit_region" aria-hidden="true">
+    <div class="modal fade" role="dialog" id="edit_user" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <form action="{{url('users/update')}}" method="post">
@@ -206,7 +206,7 @@
             e.preventDefault();
             var dataURL = $(this).attr('href');
             $('.modal-body').load(dataURL, function () {
-                $('#edit_region').modal({show: true});
+                $('#edit_user').modal({show: true});
             });
         });
         //For Deleting
