@@ -14,7 +14,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
-                <a class="navbar-brand text-warning text-capitalize" href="index.html"> kilimo.com</a>
+                <a class="navbar-brand text-warning text-capitalize" href="{{url('/')}}"> kilimo.com</a>
             </div>
             <div class="col-md-6 pt-2">
                 <form action="">

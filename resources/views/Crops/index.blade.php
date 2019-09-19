@@ -19,6 +19,7 @@
                     <tr>
                         <th class="item_id">Id</th>
                         <th>Crop Name</th>
+                        <th>Crop Quantity</th>
                         <th>Crop Unit</th>
                         <th>Crop Farmer</th>
                         <th>Crop Year</th>
@@ -30,8 +31,9 @@
                         <tr>
                             <td class="item_id">{{$crop->id}}</td>
                             <td class="desc_name">{{$crop->crop_name}}</td>
+                            <td>{{$crop->quantity_remained}}</td>
                             <td>{{$crop->unit->name}}</td>
-                            <td>{{$crop->farmer->first_name.' '.$crop->farmer->surname}}</td>
+                            <td><a class="text-color" href="{{url('crop/show/'.$crop->id)}}">{{$crop->farmer->first_name.' '.$crop->farmer->surname}}</a></td>
                             <td>{{$crop->year->name}}</td>
                             <td style="width:14%">
                                 <a href="{{url('crop/edit/'.$crop->id)}}" class="edit-btn">Edit</a> |
@@ -62,6 +64,12 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <label for="name" class="control-label">Crop Name</label>
                                 <input type="text" id="name" name="crop_name" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label for="quantity" class="control-label">Crop Quantity</label>
+                                <input type="text" id="quantity" name="quantity" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">

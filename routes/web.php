@@ -30,6 +30,9 @@ Route::get('users/edit/{id}', 'Setups\UsersController@edit');
 Route::post('users/update', 'Setups\UsersController@update');
 Route::get('users/delete/{id}', 'Setups\UsersController@destroy');
 
+//Profile
+Route::get('profile/index/{id}', 'Profile\ProfileController@index');
+
 //Regions
 Route::get('region', 'Setups\RegionsController@index');
 Route::post('region/store', 'Setups\RegionsController@store');
@@ -63,12 +66,19 @@ Route::get('unit/delete/{id}', 'Setups\UnitsController@destroy');
 //Crops
 Route::get('crop', 'Crops\CropsController@index');
 Route::post('crop/store', 'Crops\CropsController@store');
+Route::get('crop/show/{id}', 'Crops\CropsController@show');
 Route::get('crop/edit/{id}', 'Crops\CropsController@edit');
 Route::post('crop/update', 'Crops\CropsController@update');
 Route::get('crop/delete/{id}', 'Crops\CropsController@destroy');
 
 // Crops Details
 Route::get('crops_details', 'Crops\CropsdetailsController@index');
+
+//Orders
+Route::get('order', 'Orders\OrdersController@index');
+Route::post('order/create/{id}', 'Orders\OrdersController@create');
+Route::post('order/store', 'Orders\OrdersController@store');
+Route::get('order/confirm/{id}', 'Orders\OrdersController@confirm');
 
 //Ajax Routes
 Route::get('ajax/district/', 'Setups\DistrictsController@getDistricts');

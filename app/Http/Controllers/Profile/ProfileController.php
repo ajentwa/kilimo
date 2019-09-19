@@ -1,27 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Crops;
+namespace App\Http\Controllers\Profile;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Crops\Crop;
-use App\Models\Setups\Region;
-use App\Models\Setups\District;
+use App\Helpers\LogActivity;
+use App\User;
 use App\Models\Setups\Ward;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
-class CropsdetailsController extends Controller
+class ProfileController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $crops = Crop::all();
+        $user = User::find($id);
 
-        $regions = Region::all();
-
-        $districts = District::all();
-
-        $wards = Ward::all();
-        
-        return view('Crops.details',compact('crops','regions','districts','wards'));
+        return view('Profile.index', compact('user'));
     }
 
     public function create()

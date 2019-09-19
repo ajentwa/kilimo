@@ -65,6 +65,7 @@
                         <ul class="nav side-menu">
                             <li><a href="{{url('dashboard')}}"><i class="fa fa-tachometer"></i> Dashboard</a></li>
                             <li><a href="{{url('crop')}}"><i class="fa fa-crop"></i> Crops</a></li>
+                            <li><a href="{{url('order')}}"><i class="fa fa-reorder"></i> Orders</a></li>
                         </ul>
                     </div>
 
@@ -119,15 +120,16 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-left pull-right">
                         <li class=" ">
-                            <a style="color: white !important;" href="javascript:;" class="user-profile dropdown-toggle"
+                            <a style="color: white !important;background-color:inherit;" href="javascript:;" class="user-profile dropdown-toggle"
                                data-toggle="dropdown"
                                aria-expanded="false">
+                                <i class="fa fa-user fa-lg"></i>  {{Auth::user()->first_name }} {{Auth::user()->surname }}  
                                 <img src="{{asset('assets/images/img.png')}}"
                                      alt="">{{--{{$stations->name}}--}}
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;"> Profile</a></li>
+                                <li><a href="{{url('profile/index/'.Auth::user()->id)}}"> Profile</a></li>
                                 <li>
 
                                     <a href="javascript:;">

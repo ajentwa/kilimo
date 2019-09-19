@@ -34,6 +34,8 @@ class CropsController extends Controller
 
         if (!$crop_exist) {
 
+            $data['initial_quantity'] = $data['quantity'];
+            $data['quantity_remained'] = $data['quantity'];
             $data['farmer_id'] = $user_id;
             $data['year_id'] = $year_id;
             Crop::create($data);
@@ -47,6 +49,13 @@ class CropsController extends Controller
         } else {
             return Redirect::back()->with('errors', 'Crop Name Already Exist');
         }
+    }
+
+    public function show($id)
+    {
+        $crop = Crop::find($id);
+
+        return view('Crops.viewuser', compact('crop'));
     }
 
     public function edit($id)
@@ -70,6 +79,9 @@ class CropsController extends Controller
         $crop_exist = Crop::where('crop_name', $data['crop_name'])->where('id', '!=', $data['crop_id'])->first();
 
         if (!$crop_exist) {
+
+            $data['initial_quantity'] = $data['quantity'];
+            $data['quantity_remained'] = $data['quantity'];
             $crop->update($data);
 
             //log user Activity

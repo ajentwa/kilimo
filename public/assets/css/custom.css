@@ -18,6 +18,11 @@
     color: white;
 }
 
+.text-color {
+    /* color: #1b5e20;; */
+    color: blue;
+}
+
 .item_id {
 
     display: none;
@@ -129,6 +134,5 @@
     background: rgb(235, 225, 225) !important;
     color: black
 }
-
 
 

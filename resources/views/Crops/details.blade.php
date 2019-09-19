@@ -14,7 +14,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
-                <a class="navbar-brand text-warning text-capitalize" href="index.html"> kilimo.com</a>
+                <a class="navbar-brand text-warning text-capitalize" href="{{url('/')}}"> kilimo.com</a>
             </div>
             <div class="col-md-6 pt-2">
                 <form action="">
@@ -133,22 +133,97 @@
 
     <div class="container-fluid bg-white text-dark py-3 my-3">
         <div class="row">
-            @foreach ($cropsdetails as $detail)
+            @foreach ($crops as $crop)
                 <div class="col-md-3">
                     <div class="card mb-3">
                         <img style="height: 200px; width: 100%; display: block;" src="{{asset('assets/img/maize1.jpg')}}" alt="Card image">
                         <ul class="list-group">
-                            <li class="list-group-item">Crop Name: {{$detail->crop_name}}</li>
-                            <li class="list-group-item">Farmer: {{$detail->farmer->first_name.' '.$detail->farmer->surname}}</li>
-                            <li class="list-group-item">Quantity: {{$detail->unit->name}}</li>
-                            <li class="list-group-item">Phone no: 0764523452</li>
+                            <li class="list-group-item">Crop Name: {{$crop->crop_name}}</li>
+                            <li class="list-group-item">Farmer: {{$crop->farmer->first_name.' '.$crop->farmer->surname}}</li>
+                            <li class="list-group-item">Quantity: {{$crop->quantity_remained}} {{$crop->unit->name}}</li>
+                            <li class="list-group-item">Phone no: {{$crop->farmer->phone_no}}</li>
                         </ul>
+                        <p><a class="btn btn-primary btn-block" data-toggle="modal" data-target="#edit_crop" href="{{url('order/create/'.$crop->id)}}">Order</a></p>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
 
+
+    <!-- CREATE ORDER -->
+    <div class="modal fade" role="dialog" id="edit_crop" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form action="{{url('order/store')}}" method="post">
+                    @csrf
+                    <div class="modal-header bg-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title"><strong> Create Order</strong></h4>
+                    </div>
+                    <div class="modal-body modal-edit">
+                        <div class="form-group">
+                            <input type="hidden" name="crop_id" value="{{$crop->id}}">
+                            <label for="quantity">Crop Quantity</label>
+                            <input type="text" name="quantity_ordered" id="quantity" class="form-control" placeholder="Enter Crop Quantity" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone_no">Phone Number</label>
+                            <input type="text" name="phone_no" id="phone_no" class="form-control"placeholder="Enter Phone Number">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    
+    {{-- <div class="modal fade" id="create_order">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{url('order/store/'.$crop->id)}}" method="post" autocomplete="off">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Create Order</h5>
+                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                    <div class="modal-header bg-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title"><strong> Create Order</strong></h4>
+                    </div>
+                    <div class="modal-body modal-edit">
+                        <div class="form-group">
+                            <input type="hidden" name="crop_id" value="{{$crop->id}}">
+                            <label for="quantity">Crop Quantity</label>
+                            <input type="text" name="quantity_ordered" id="quantity" class="form-control" placeholder="Enter Crop Quantity" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone_no">Phone Number</label>
+                            <input type="text" name="phone_no" id="phone_no" class="form-control"placeholder="Enter Phone Number">
+                        </div>
+                    </div>
+                        
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i> close
+                        </button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> --}}
 
     <!-- USER REGISTRATION MODAL -->
     <div class="modal fade" id="addUserModal">
@@ -274,6 +349,15 @@
             </div>
         </div>
     </div>
+    <script>
+        $('.edit-btn').on('click', function (e) {
+            e.preventDefault();
+            var dataURL = $(this).attr('href');
+            $('.modal-edit').load(dataURL, function () {
+                $('#edit_crop').modal({show: true});
+            });
+        });
+    </script>
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/popper.min.js')}}"></script>
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>

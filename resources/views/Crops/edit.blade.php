@@ -7,6 +7,12 @@
 </div>
 <div class="form-group row">
     <div class="col-md-12 col-sm-12 col-xs-12">
+        <label for="quantity" class="control-label">Crop Quantity</label>
+        <input type="text" id="quantity" name="quantity" class="form-control" value="{{$crop->quantity_remained}}" required>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <label class="control-label" for="unit">Crop Unit</label>
         <select class="form-control dd_select" name="unit_id" id="unit" required style="width: 100%">
             <option value="">---</option>
