@@ -105,7 +105,7 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
-            <li class="nav-item pl-2"><a class="nav-link" href="{{url('crops_details')}}">Get the Crops</a></li>
+                <li class="nav-item pl-2"><a class="nav-link" href="{{url('crops_details')}}">Get the Crops</a></li>
                 <li class="nav-item pr-2"><a class="nav-link" href="#">|&nbsp; English</a></li>
                 <li class="nav-item dropdown mr-3">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -136,14 +136,17 @@
             @foreach ($crops as $crop)
                 <div class="col-md-3">
                     <div class="card mb-3">
-                        <img style="height: 200px; width: 100%; display: block;" src="{{asset('assets/img/maize1.jpg')}}" alt="Card image">
+                        <img style="height: 200px; width: 100%; display: block;"
+                             src="{{asset('assets/img/maize1.jpg')}}" alt="Card image">
                         <ul class="list-group">
                             <li class="list-group-item">Crop Name: {{$crop->crop_name}}</li>
-                            <li class="list-group-item">Farmer: {{$crop->farmer->first_name.' '.$crop->farmer->surname}}</li>
-                            <li class="list-group-item">Quantity: {{$crop->quantity_remained}} {{$crop->unit->name}}</li>
+                            <li class="list-group-item">
+                                Farmer: {{$crop->farmer->first_name.' '.$crop->farmer->surname}}</li>
+                            <li class="list-group-item">
+                                Quantity: {{$crop->quantity_remained}} {{$crop->unit->name}}</li>
                             <li class="list-group-item">Phone no: {{$crop->farmer->phone_no}}</li>
                         </ul>
-                        <p><a class="btn btn-primary btn-block" data-toggle="modal" data-target="#edit_crop" href="{{url('order/create/'.$crop->id)}}">Order</a></p>
+                        <p><a class="btn btn-primary btn-block" href="{{url('order/create/'.$crop->id)}}">Order</a></p>
                     </div>
                 </div>
             @endforeach
@@ -164,15 +167,7 @@
                         <h4 class="modal-title"><strong> Create Order</strong></h4>
                     </div>
                     <div class="modal-body modal-edit">
-                        <div class="form-group">
-                            <input type="hidden" name="crop_id" value="{{$crop->id}}">
-                            <label for="quantity">Crop Quantity</label>
-                            <input type="text" name="quantity_ordered" id="quantity" class="form-control" placeholder="Enter Crop Quantity" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone_no">Phone Number</label>
-                            <input type="text" name="phone_no" id="phone_no" class="form-control"placeholder="Enter Phone Number">
-                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>
@@ -184,180 +179,6 @@
             </div>
         </div>
     </div>
-
-
-    
-    {{-- <div class="modal fade" id="create_order">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{url('order/store/'.$crop->id)}}" method="post" autocomplete="off">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title">Create Order</h5>
-                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                        @csrf
-                    <div class="modal-header bg-primary">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        <h4 class="modal-title"><strong> Create Order</strong></h4>
-                    </div>
-                    <div class="modal-body modal-edit">
-                        <div class="form-group">
-                            <input type="hidden" name="crop_id" value="{{$crop->id}}">
-                            <label for="quantity">Crop Quantity</label>
-                            <input type="text" name="quantity_ordered" id="quantity" class="form-control" placeholder="Enter Crop Quantity" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone_no">Phone Number</label>
-                            <input type="text" name="phone_no" id="phone_no" class="form-control"placeholder="Enter Phone Number">
-                        </div>
-                    </div>
-                        
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i> close
-                        </button>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> --}}
-
-    <!-- USER REGISTRATION MODAL -->
-    <div class="modal fade" id="addUserModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{url('register')}}" method="post" autocomplete="off">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title">Farmer registration</h5>
-                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                        @csrf
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label for="first_name">First Name</label>
-                                <input type="text" name="first_name" id="first_name" class="form-control"
-                                       placeholder="Enter first name" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="middle_name">Middle Name</label>
-                                <input type="text" name="middle_name" id="middle_name" class="form-control"
-                                       placeholder="Enter middle name">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label for="surname">Surname</label>
-                                <input type="text" name="surname" id="surname" class="form-control"
-                                       placeholder="Enter surname" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="phone">Phone number</label>
-                                <input type="text" name="phone_no" id="phone" class="form-control"
-                                       placeholder="Enter phone number" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email" class="form-control"
-                                       placeholder="Enter email address" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="region">Region</label>
-                                <select class="form-control dd_select" name="region_id" id="region" required>
-                                    <option value="">Select Region</option>
-                                    @foreach ($regions as $region)
-                                        <option value="{{$region->id}}">{{$region->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label for="district">District</label>
-                                <select class="form-control" name="district_id" id="district" required>
-                                    <option value="">Select District</option>
-                                    @foreach ($districts as $district)
-                                        <option value="{{$district->id}}">{{$district->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="ward">Ward</label>
-                                <select class="form-control" name="ward_id" id="ward" required>
-                                    <option value="">Select Ward</option>
-                                    @foreach ($wards as $ward)
-                                        <option value="{{$ward->id}}">{{$ward->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="password" class="form-control"
-                                       placeholder="Enter your password" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="confirm_password">Confirm Password</label>
-                                <input type="password" name="confirm_password" id="confirm_password"
-                                       class="form-control" placeholder="Confirm your password" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i> close
-                        </button>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- USER LOGIN MODAL -->
-    <div class="modal fade" id="userLoginModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{url('login')}}" method="post" autocomplete="off">
-                    @csrf
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title">Farmer Login</h5>
-                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
-                    </div>
-                    <div class="modal-body pt-4">
-                        @csrf
-                        <div class="form-group input-group">
-                            <span class="input-group-addon"><i class="fa fa-lg text-primary fa-user"></i></span>
-                            <input type="text" name="email" class="form-control" placeholder="Enter Username" required>
-                        </div>
-                        <div class="form-group input-group">
-                            <span class="input-group-addon"><i class="fa fa-lg text-primary fa-lock"></i></span>
-                            <input type="password" name="password" class="form-control" placeholder="Enter Password" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i> Cancel
-                        </button>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Log In</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <script>
-        $('.edit-btn').on('click', function (e) {
-            e.preventDefault();
-            var dataURL = $(this).attr('href');
-            $('.modal-edit').load(dataURL, function () {
-                $('#edit_crop').modal({show: true});
-            });
-        });
-    </script>
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/popper.min.js')}}"></script>
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
@@ -367,57 +188,21 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
         function clearMsg() {
             $('.msg').hide();
         }
-
         $(window).load(function () {
             setTimeout(clearMsg, 3000);
         });
-
-        //Populating the district
-        $('#region').on('change', function () {
-            var regionID = $(this).val();
-            alert(regionID);
-            $.ajax({
-                url: '{{url('/ajax/district/')}}',
-                type: "GET",
-                data: {region_id: regionID},
-                dataType: "json",
-                success: function (data) {
-                    var district = $('#district');
-                    district.empty();
-                    district.append('<option value="">Select District</option>');
-                    $.each(data, function (key, value) {
-                        $('#district').append('<option value="' + key + '">' + value + '</option>');
-                    });
-
-                }
+    </script>
+    <script>
+        $('.btn-block').on('click', function (e) {
+            e.preventDefault();
+            const dataURL = $(this).attr('href');
+            $('.modal-edit').load(dataURL, function () {
+                $('#edit_crop').modal({show: true});
             });
         });
-
-        //Populating Wards
-        $('#district').on('change', function () {
-            var districtID = $(this).val();
-
-            alert(districtID);
-            $.ajax({
-                url: '{{url('/ajax/ward/')}}',
-                type: "GET",
-                data: {district_id: districtID},
-                dataType: "json",
-                success: function (data) {
-                    var ward_id = $('#ward');
-                    ward_id.empty();
-                    ward_id.append('<option value="">Select Ward</option>');
-                    $.each(data, function (key, value) {
-                        $('#ward').append('<option value="' + key + '">' + value + '</option>');
-                    });
-                }
-            });
-        });
-
     </script>
 </section>
 </body>

@@ -14,70 +14,60 @@ class OrdersController extends Controller
 {
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::where('is_approved',false)->get();
 
         return view('Orders.index', compact('orders'));
+
     }
 
-    public function store(Request $request)
+    public function confirmedOrders()
+    {
+        $orders = Order::where('is_approved',true)->get();
+
+        return view('Orders.confirmed', compact('orders'));
+    }
+
+    public function store()
     {
         $data = Input::all();
 
-        $order_exist = Order::where('phone_no', $data['phone_no'])->first();
+        Order::create($data);
 
-        if (!$order_exist) {
+        //log user Activity
+        $varData = "Crop Id = " . $data['crop_id'] . "Quantity Ordered = " . $data['quantity_ordered'] . "Phone Number = " . $data['phone_no'];
+        $varAction = "Inserted Order , " . $varData;
+        LogActivity::addToLog('Insert', $varAction);
 
-            Order::create($data);
-
-            //log user Activity
-            $varData = "Crop Id = " . $data['crop_id']."Quantity Ordered = " . $data['quantity_ordered']."Phone Number = " . $data['phone_no'];
-            $varAction = "Inserted Order , " . $varData;
-            LogActivity::addToLog('Insert', $varAction);
-
-            return Redirect::back()->with('success', 'Order Successfully Created');
-        } else {
-            return Redirect::back()->with('errors', 'Order Already Exist');
-        }
+        return Redirect::back()->with('success', 'Order Successfully Created');
     }
 
     public function confirm($id)
     {
-        $data = Input::all();
-
         $order = Order::find($id);
 
-        $order_exist = Order::where('quantity_ordered', $order->quantity_ordered)->where('is_approved', '!=', '0')->first();
+        $order->is_approved = 1;
 
-        if (!$order_exist) {
+        $order->update();
 
-            $order->is_approved = 1;
+        $crop = Crop::find($order->crop->id);
 
-            $order->update($data);
+        $crop->quantity_remained -= $order->quantity_ordered;
 
-            $crop = Crop::find($order->crop->id);
+        $crop->update();
 
-            $crop->quantity_remained -= $order->quantity_ordered;
+        //log user Activity
+        $varData = "Crop Name = " . $order->crop->crop_name . " Quantity Ordered = " . $order->quantity_ordered . "Phone Number = " . $order->phone_no;
+        $varAction = "Confirm Order where, ID =" . $order->id . " " . $varData;
+        LogActivity::addToLog('Update', $varAction);
 
-            $crop->update($data);
-
-        
-
-            //log user Activity
-            $varData = "Crop Name = " . $order->crop->crop_name." Quantity Ordered = " . $order->quantity_ordered."Phone Number = " . $order->phone_no;
-            $varAction = "Confirm Order where, ID =" . $order->id . " " . $varData;
-            LogActivity::addToLog('Update', $varAction);
-
-            return Redirect::back()->with('success', 'Order Successfully Confirmed!');
-        }else {
-            return Redirect::back()->with('errors', 'Order Already Confirmed!');
-        }
+        return Redirect::back()->with('success', 'Order Successfully Confirmed!');
     }
 
     public function create($id)
     {
-        $order = Order::find($id);
+        $crop_id = $id;
 
-        return view('Orders.index', compact('order'));
+        return view('Orders.create', compact('crop_id'));
     }
 
     public function update(Request $request, $id)
