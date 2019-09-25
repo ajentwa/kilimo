@@ -76,9 +76,10 @@ Route::get('crops_details', 'Crops\CropsdetailsController@index');
 
 //Orders
 Route::get('order', 'Orders\OrdersController@index');
-Route::post('order/create/{id}', 'Orders\OrdersController@create');
+Route::get('order/create/{id}', 'Orders\OrdersController@create');
 Route::post('order/store', 'Orders\OrdersController@store');
 Route::get('order/confirm/{id}', 'Orders\OrdersController@confirm');
+Route::get('confirmed-orders', 'Orders\OrdersController@confirmedOrders');
 
 //Ajax Routes
 Route::get('ajax/district/', 'Setups\DistrictsController@getDistricts');
