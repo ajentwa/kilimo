@@ -65,7 +65,13 @@
                         <ul class="nav side-menu">
                             <li><a href="{{url('dashboard')}}"><i class="fa fa-tachometer"></i> Dashboard</a></li>
                             <li><a href="{{url('crop')}}"><i class="fa fa-crop"></i> Crops</a></li>
-                            <li><a href="{{url('order')}}"><i class="fa fa-reorder"></i> Orders</a></li>
+                            <li><a><i class="fa fa-reorder"></i> Orders <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{{url('order')}}">Requested</a></li>
+                                    <li><a href="{{url('confirmed-orders')}}">Confirmed</a></li>
+                                    <li><a href="#">Rejected</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
 
@@ -123,7 +129,7 @@
                             <a style="color: white !important;background-color:inherit;" href="javascript:;" class="user-profile dropdown-toggle"
                                data-toggle="dropdown"
                                aria-expanded="false">
-                                <i class="fa fa-user fa-lg"></i>  {{Auth::user()->first_name }} {{Auth::user()->surname }}  
+                                <i class="fa fa-user fa-lg"></i>  {{Auth::user()->first_name }} {{Auth::user()->surname }}
                                 <img src="{{asset('assets/images/img.png')}}"
                                      alt="">{{--{{$stations->name}}--}}
                                 <span class=" fa fa-angle-down"></span>
