@@ -141,7 +141,8 @@
                         <ul class="list-group">
                             <li class="list-group-item">Crop Name: {{$crop->crop_name}}</li>
                             <li class="list-group-item">
-                                Farmer: {{$crop->farmer->first_name.' '.$crop->farmer->surname}}</li>
+                                Farmer: <a class="text-color btn-farmer" href="{{url('crop/show/'.$crop->id)}}">
+                                    {{$crop->farmer->first_name.' '.$crop->farmer->surname}}</a></li>
                             <li class="list-group-item">
                                 Quantity: {{$crop->quantity_remained}} {{$crop->unit->name}}</li>
                             <li class="list-group-item">Phone no: {{$crop->farmer->phone_no}}</li>
@@ -152,7 +153,6 @@
             @endforeach
         </div>
     </div>
-
 
     <!-- CREATE ORDER -->
     <div class="modal fade" role="dialog" id="edit_crop" aria-hidden="true">
@@ -179,6 +179,28 @@
             </div>
         </div>
     </div>
+
+    <!-- View User -->
+    <div class="modal fade" role="dialog" id="show_farmer" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h4 class="modal-title"><strong>Farmer Profile</strong></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-farmer">
+                      
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-check"></i>
+                        Ok
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/popper.min.js')}}"></script>
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
@@ -201,6 +223,14 @@
             const dataURL = $(this).attr('href');
             $('.modal-edit').load(dataURL, function () {
                 $('#edit_crop').modal({show: true});
+            });
+        });
+
+        $('.btn-farmer').on('click', function (e) {
+            e.preventDefault();
+            const dataURL = $(this).attr('href');
+            $('.modal-farmer').load(dataURL, function () {
+                $('#show_farmer').modal({show: true});
             });
         });
     </script>

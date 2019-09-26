@@ -54,7 +54,8 @@ class CropsController extends Controller
     public function show($id)
     {
         $crop = Crop::find($id);
-
+        // $crop_id = $id;
+        
         return view('Crops.viewuser', compact('crop'));
     }
 

@@ -21,7 +21,6 @@
                         <th>Crop Name</th>
                         <th>Crop Quantity</th>
                         <th>Crop Unit</th>
-                        <th>Crop Farmer</th>
                         <th>Crop Year</th>
                         <th>Actions</th>
                     </tr>
@@ -33,7 +32,6 @@
                             <td class="desc_name">{{$crop->crop_name}}</td>
                             <td>{{$crop->quantity_remained}}</td>
                             <td>{{$crop->unit->name}}</td>
-                            <td><a class="text-color" href="{{url('crop/show/'.$crop->id)}}">{{$crop->farmer->first_name.' '.$crop->farmer->surname}}</a></td>
                             <td>{{$crop->year->name}}</td>
                             <td style="width:14%">
                                 <a href="{{url('crop/edit/'.$crop->id)}}" class="edit-btn">Edit</a> |
